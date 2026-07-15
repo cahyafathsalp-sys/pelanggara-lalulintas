@@ -10,8 +10,15 @@ class RoleMiddleware
 {
     public function handle(Request $request, Closure $next, $role)
     {
-        if(Auth::check() && Auth::user()->role==$role)
-        {
+        if (!Auth::check()) {
+            abort(403);
+        }
+
+        // Samakan case supaya tidak gagal karena beda huruf (Petugas vs petugas)
+        $userRole = strtolower((string) Auth::user()->role);
+        $requiredRole = strtolower((string) $role);
+
+        if ($userRole === $requiredRole) {
             return $next($request);
         }
 

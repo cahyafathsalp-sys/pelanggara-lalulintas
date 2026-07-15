@@ -45,15 +45,15 @@ Route::middleware(['auth'])->group(function () {
     |--------------------------------------------------------------------------
     | CRUD Petugas
     |--------------------------------------------------------------------------
+    | Petugas hanya untuk admin (lihat group role:admin di bawah)
     */
-
-    Route::resource('petugas', PetugasController::class);
 
     /*
     |--------------------------------------------------------------------------
     | CRUD Pengendara
     |--------------------------------------------------------------------------
     */
+
 
     Route::resource('pengendara', PengendaraController::class);
 
@@ -94,5 +94,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::resource('users', UserController::class);
 
 });
+
+
 
 });

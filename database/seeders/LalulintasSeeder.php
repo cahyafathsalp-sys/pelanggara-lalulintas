@@ -32,17 +32,36 @@ class LalulintasSeeder extends Seeder
             $pengendara = $this->seedPengendaraDanKendaraan();
 
             // 3) Petugas (transaksi)
-            $petugas = Petugas::firstOrCreate(
-                [
+            // nip unik, jadi gunakan firstOrCreate berdasarkan user_id + nip
+            // Jika seed dipanggil ulang dan nip sudah ada tapi user berbeda, ambil yang sudah ada.
+            // 3) Petugas (transaksi)
+            // nip unik, jadi kita pastikan idempotent saat seeder dipanggil ulang.
+            // Cari dulu petugas dengan nip yang sama.
+            $petugas = Petugas::where('nip', 'NIP-0001')->first();
+
+            if (!$petugas) {
+                $petugas = Petugas::create([
                     'user_id' => $user->id,
                     'nip' => 'NIP-0001',
-                ],
-                [
-                    'nama' => 'Petugas Utama',
+                    'nama' => 'permana',
                     'pangkat' => 'Brigadir',
                     'no_hp' => '081234567890',
-                ]
-            );
+                ]);
+            }
+
+            // Pastikan user_id terisi ke user admin yang sedang dipakai seeding.
+            // (Jika nip sudah ada dan user berbeda, update user_id agar relasi User->Petugas konsisten.)
+            if ($petugas->user_id !== $user->id) {
+                $petugas->update(['user_id' => $user->id]);
+            }
+
+
+            // Jika masih terjadi duplicate (misal nip sudah dipakai user lain), gunakan petugas yang nip-nya sama.
+            // (Relasi user<->petugas tetap bisa dipakai dari petugas ke user_id yang benar.)
+            if (!$petugas) {
+                $petugas = Petugas::where('nip', 'NIP-0001')->first();
+            }
+
 
             // 4) Pelanggaran + Detail Pelanggaran
             $dataPelanggaran = [
