@@ -1,134 +1,196 @@
 @extends('layouts.app')
-@vite(['resources/css/app.css', 'resources/css/login.css'])
+
+@vite(['resources/css/app.css','resources/css/login.css'])
+
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/login.css') }}">
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+@vite([
+    
+    'resources/css/login.css',
+    
+])
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 <div class="container-fluid p-0">
 
-<div class="row vh-100">
+    <div class="row g-0 min-vh-100">
 
-    <!-- KIRI -->
-    <div class="col-lg-7 d-none d-lg-block left-panel">
+        <!-- LEFT -->
+        <div class="col-lg-7 d-none d-lg-flex left-panel">
 
-        <div class="overlay">
+            <div class="overlay">
 
-            <div class="left-content">
+                <div class="content">
 
-                <h5 class="text-info">
-                    Pendataan Lalu Lintas
-                </h5>
+                    <div class="logo-circle">
+                        <i class="fas fa-road"></i>
+                    </div>
 
-               <img src="{{ asset('image/Dashboard.png') }}" class="img-fluid">
-                <h1>
-                    SISTEM PENDATAAN
-                    <br>
-                    LALU LINTAS 
-                </h1>
+                    <h5 class="text-info mb-3">
+                        Sistem Informasi
+                    </h5>
 
-                <p>
-                    Monitoring kendaraan dan pelanggaran lalu lintas
-                    berbasis Laravel.
-                </p>
+                    <h1>
+                        PENDATAAN
+                        <br>
+                        PELANGGARAN
+                        <br>
+                        LALU LINTAS
+                    </h1>
+
+                    <p class="mt-4">
+                        Sistem informasi berbasis Laravel untuk membantu
+                        proses pendataan kendaraan, pengendara,
+                        petugas, serta pelanggaran lalu lintas
+                        secara cepat, akurat dan terdokumentasi.
+                    </p>
+
+                    <img src="{{ asset('image/jjj.jpg') }}"
+                        class="hero-img mt-4"
+                        alt="Traffic">
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+        <!-- RIGHT -->
+        <div class="col-lg-5 d-flex align-items-center justify-content-center login-side">
 
-    <!-- KANAN -->
-    <div class="col-lg-5 login-side">
+            <div class="login-card">
 
-        <div class="login-box">
+                <div class="text-center mb-4">
 
-            <div class="text-center mb-4">
+                    <div class="avatar">
 
-                <div class="avatar">
-
-                    <i class="fas fa-user"></i>
-
-                </div>
-
-                <h2>Login</h2>
-
-                <p>Masuk untuk mengakses sistem</p>
-
-            </div>
-
-            <form method="POST" action="{{ route('login') }}">
-
-                @csrf
-
-                <div class="mb-3">
-
-                    <label>Email</label>
-
-                    <input
-                    type="email"
-                    class="form-control @error('email') is-invalid @enderror"
-                    name="email"
-                    required
-                    autofocus>
-
-                    @error('email')
-                    <span class="invalid-feedback">
-                        {{ $message }}
-                    </span>
-                    @enderror
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label>Password</label>
-
-                    <input
-                    type="password"
-                    class="form-control @error('password') is-invalid @enderror"
-                    name="password"
-                    required>
-
-                    @error('password')
-                    <span class="invalid-feedback">
-                        {{ $message }}
-                    </span>
-                    @enderror
-
-                </div>
-
-                <div class="d-flex justify-content-between mb-4">
-
-                    <div class="form-check">
-
-                        <input
-                        class="form-check-input"
-                        type="checkbox"
-                        name="remember">
-
-                        <label class="form-check-label">
-                            Remember Me
-                        </label>
+                        <i class="fas fa-user-shield"></i>
 
                     </div>
 
-                    @if(Route::has('password.request'))
-                        <a href="{{ route('password.request') }}">
-                            Forgot Password?
-                        </a>
-                    @endif
+                    <h2>Selamat Datang</h2>
+
+                    <p>Silakan login untuk masuk ke dashboard.</p>
 
                 </div>
 
-                <button class="btn btn-primary btn-login w-100">
+                <form method="POST" action="{{ route('login') }}">
 
-                    Login
+                    @csrf
 
-                </button>
+                    <div class="mb-3">
 
-            </form>
+                        <label>Email</label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+
+                            <input
+                                type="email"
+                                name="email"
+                                class="form-control @error('email') is-invalid @enderror"
+                                placeholder="Masukkan email"
+                                required
+                                autofocus>
+
+                        </div>
+
+                        @error('email')
+                        <span class="invalid-feedback d-block">
+                            {{ $message }}
+                        </span>
+                        @enderror
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Password</label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </span>
+
+                            <input
+                                id="password"
+                                type="password"
+                                name="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                placeholder="Masukkan password"
+                                required>
+
+                            <button
+                                type="button"
+                                class="btn btn-light border"
+                                onclick="togglePassword()">
+
+                                <i class="fas fa-eye" id="eye"></i>
+
+                            </button>
+
+                        </div>
+
+                        @error('password')
+                        <span class="invalid-feedback d-block">
+                            {{ $message }}
+                        </span>
+                        @enderror
+
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-4">
+
+                        <div class="form-check">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                name="remember">
+
+                            <label class="form-check-label">
+                                Remember Me
+                            </label>
+
+                        </div>
+
+                        @if(Route::has('password.request'))
+
+                        <a href="{{ route('password.request') }}">
+
+                            Lupa Password?
+
+                        </a>
+
+                        @endif
+
+                    </div>
+
+                    <button class="btn btn-primary btn-login w-100">
+
+                        <i class="fas fa-right-to-bracket me-2"></i>
+
+                        Login
+
+                    </button>
+
+                </form>
+
+                <hr>
+
+                <div class="text-center text-secondary">
+
+                    © {{ date('Y') }}
+
+                    Sistem Pendataan Pelanggaran Lalu Lintas
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -136,6 +198,34 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
-</div>
+<script>
+
+function togglePassword(){
+
+let pass=document.getElementById("password");
+
+let eye=document.getElementById("eye");
+
+if(pass.type==="password"){
+
+pass.type="text";
+
+eye.classList.remove("fa-eye");
+
+eye.classList.add("fa-eye-slash");
+
+}else{
+
+pass.type="password";
+
+eye.classList.remove("fa-eye-slash");
+
+eye.classList.add("fa-eye");
+
+}
+
+}
+
+</script>
 
 @endsection

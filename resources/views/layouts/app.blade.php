@@ -18,12 +18,20 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md shadow-sm" style="background: linear-gradient(45deg, #0b1220, #1f4bff);">
+
+            <style>
+                .navbar, .navbar .nav-link, .navbar .navbar-brand, .navbar .dropdown-toggle { color: #ffffff !important; }
+                .navbar .nav-link:hover { opacity: .9; }
+                .navbar .dropdown-menu { background: rgba(15, 23, 42, 0.98); border: 1px solid rgba(255,255,255,.12); }
+                .navbar .dropdown-item { color: #ffffff; }
+                .navbar .dropdown-item:hover { background: rgba(31, 75, 255, 0.25); color: #ffffff; }
+            </style>
 
 
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'pelanggaran') }}
+                    {{ config('app.name', 'lalulintas') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

@@ -2,302 +2,390 @@
 
 @section('content')
 
-<!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-<!-- Chart.js -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div class="container py-4 dashboard-page">
+<style>
+
+body{
+    background:linear-gradient(rgba(15,23,42,.9),rgba(15,23,42,.9)),
+    url('https://images.unsplash.com/photo-1518770660439-4636190af475');
+    background-size:cover;
+    background-attachment:fixed;
+    color:white;
+}
+
+/* HEADER */
+
+.hero{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:30px;
+    margin-bottom:25px;
+    border:1px solid rgba(255,255,255,.1);
+}
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+.hero h2{
+    font-weight:bold;
+}
 
-        <div>
-            <h2 class="fw-bold">
-                🚦 Dashboard Sistem Pendataan Pelanggaran Lalu Lintas
-            </h2>
+#jam{
+    font-size:22px;
+    font-weight:bold;
+}
 
-            <small class="text-muted">
-                Selamat datang di Sistem Informasi Pendataan Pelanggaran
-            </small>
-        </div>
+/* CARD */
 
-        <div class="text-end">
-            <h5 id="clock"></h5>
-        </div>
+.card-dashboard{
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    color:white;
+    transition:.4s;
+    position:relative;
+}
 
-    </div>
+.card-dashboard:hover{
+    transform:translateY(-10px);
+    box-shadow:0 20px 35px rgba(0,0,0,.35);
+}
 
-    <div class="row g-4">
+.card-dashboard::before{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    background:rgba(255,255,255,.15);
+    border-radius:50%;
+    right:-40px;
+    top:-40px;
+}
 
-        <!-- Petugas -->
+.card-body{
+    position:relative;
+    z-index:2;
+}
 
-        <div class="col-md-4">
+.icon{
+    font-size:55px;
+    opacity:.3;
+    float:right;
+}
 
-            <div class="card bg-primary text-white shadow">
+.bg1{background:linear-gradient(135deg,#4e54c8,#8f94fb);}
+.bg2{background:linear-gradient(135deg,#00b894,#55efc4);}
+.bg3{background:linear-gradient(135deg,#f7971e,#ffd200);}
+.bg4{background:linear-gradient(135deg,#0984e3,#74b9ff);}
+.bg5{background:linear-gradient(135deg,#d63031,#ff7675);}
 
-                <div class="card-body">
+.number{
+    font-size:40px;
+    font-weight:bold;
+}
 
-                    <div class="d-flex justify-content-between">
+/* CHART */
 
-                        <div>
+.glass{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,.1);
+    padding:20px;
+}
 
-                            <h5>Total Petugas</h5>
+/* MENU */
 
-                            <h1>{{ $petugas }}</h1>
+.menu-btn{
 
-                        </div>
+display:flex;
 
-                        <i class="bi bi-person-badge-fill icon"></i>
+align-items:center;
 
-                    </div>
+justify-content:center;
 
-                </div>
+flex-direction:column;
 
-            </div>
+padding:20px;
 
-        </div>
+border-radius:15px;
 
-        <!-- Pengendara -->
+text-decoration:none;
 
-        <div class="col-md-4">
+color:white;
 
-            <div class="card bg-success text-white shadow">
+background:rgba(255,255,255,.08);
 
-                <div class="card-body">
+transition:.3s;
 
-                    <div class="d-flex justify-content-between">
+}
 
-                        <div>
+.menu-btn:hover{
 
-                            <h5>Total Pengendara</h5>
+background:#2563eb;
 
-                            <h1>{{ $pengendara }}</h1>
+transform:translateY(-5px);
 
-                        </div>
+color:white;
 
-                        <i class="bi bi-person-fill icon"></i>
+}
 
-                    </div>
+.menu-btn i{
 
-                </div>
+font-size:35px;
 
-            </div>
+margin-bottom:10px;
 
-        </div>
+}
 
-        <!-- Kendaraan -->
+/* PROGRESS */
 
-        <div class="col-md-4">
+.progress{
 
-            <div class="card bg-warning text-dark shadow">
+height:10px;
 
-                <div class="card-body">
+background:rgba(255,255,255,.15);
 
-                    <div class="d-flex justify-content-between">
+}
 
-                        <div>
+.progress-bar{
 
-                            <h5>Total Kendaraan</h5>
+background:#00d2ff;
 
-                            <h1>{{ $kendaraan }}</h1>
+}
 
-                        </div>
+</style>
 
-                        <i class="bi bi-car-front-fill icon"></i>
+<div class="container py-4">
 
-                    </div>
+<div class="hero d-flex justify-content-between align-items-center">
 
-                </div>
+<div>
 
-            </div>
+<h2>🚦 Dashboard Pendataan Pelanggaran</h2>
 
-        </div>
+<p class="mb-0">Selamat datang di Sistem Informasi Pendataan Pelanggaran Lalu Lintas</p>
 
-        <!-- Jenis Pelanggaran -->
+</div>
 
-        <div class="col-md-6">
+<div class="text-end">
 
-            <div class="card bg-info text-white shadow">
+<h3 id="jam"></h3>
 
-                <div class="card-body">
+<span>{{ date('d F Y') }}</span>
 
-                    <div class="d-flex justify-content-between">
+</div>
 
-                        <div>
+</div>
 
-                            <h5>Jenis Pelanggaran</h5>
+<div class="row g-4">
 
-                            <h1>{{ $jenispelanggaran }}</h1>
+<div class="col-lg-4">
+<div class="card card-dashboard bg1">
+<div class="card-body">
+<i class="fas fa-user-shield icon"></i>
+<h5>Petugas</h5>
+<div class="number">{{ $petugas }}</div>
 
-                        </div>
+<div class="progress mt-3">
+<div class="progress-bar" style="width:80%"></div>
+</div>
 
-                        <i class="bi bi-list-check icon"></i>
+</div>
+</div>
+</div>
 
-                    </div>
+<div class="col-lg-4">
+<div class="card card-dashboard bg2">
+<div class="card-body">
+<i class="fas fa-motorcycle icon"></i>
+<h5>Pengendara</h5>
+<div class="number">{{ $pengendara }}</div>
 
-                </div>
+<div class="progress mt-3">
+<div class="progress-bar" style="width:70%"></div>
+</div>
 
-            </div>
+</div>
+</div>
+</div>
 
-        </div>
+<div class="col-lg-4">
+<div class="card card-dashboard bg3">
+<div class="card-body">
+<i class="fas fa-car icon"></i>
+<h5>Kendaraan</h5>
+<div class="number">{{ $kendaraan }}</div>
 
-        <!-- Total Pelanggaran -->
+<div class="progress mt-3">
+<div class="progress-bar" style="width:90%"></div>
+</div>
 
-        <div class="col-md-6">
+</div>
+</div>
+</div>
 
-            <div class="card bg-danger text-white shadow">
+<div class="col-lg-6">
+<div class="card card-dashboard bg4">
+<div class="card-body">
+<i class="fas fa-list icon"></i>
+<h5>Jenis Pelanggaran</h5>
+<div class="number">{{ $jenispelanggaran }}</div>
+</div>
+</div>
+</div>
 
-                <div class="card-body">
+<div class="col-lg-6">
+<div class="card card-dashboard bg5">
+<div class="card-body">
+<i class="fas fa-triangle-exclamation icon"></i>
+<h5>Total Pelanggaran</h5>
+<div class="number">{{ $pelanggaran }}</div>
+</div>
+</div>
+</div>
 
-                    <div class="d-flex justify-content-between">
+</div>
 
-                        <div>
+<div class="row mt-4">
 
-                            <h5>Total Pelanggaran</h5>
+<div class="col-lg-8">
 
-                            <h1>{{ $pelanggaran }}</h1>
+<div class="glass">
 
-                        </div>
+<h4 class="mb-4">
 
-                        <i class="bi bi-exclamation-triangle-fill icon"></i>
+📊 Statistik Pelanggaran
 
-                    </div>
+</h4>
 
-                </div>
+<canvas id="myChart"></canvas>
 
-            </div>
+</div>
 
-        </div>
+</div>
 
-    </div>
+<div class="col-lg-4">
 
-    <!-- Grafik -->
+<div class="glass">
 
-    <div class="card shadow mt-5">
+<h4 class="mb-4">
 
-        <div class="card-header bg-white">
+⚡ Menu Cepat
 
-            <h5 class="fw-bold mb-0">
+</h4>
 
-                📊 Statistik Data
+<div class="row g-3">
 
-            </h5>
+<div class="col-6">
 
-        </div>
+<a href="{{ route('petugas.index') }}" class="menu-btn">
 
-        <div class="card-body">
+<i class="fas fa-user-shield"></i>
 
-            <canvas id="chartData" height="100"></canvas>
+Petugas
 
-        </div>
+</a>
 
-    </div>
+</div>
 
-    <!-- Aktivitas -->
+<div class="col-6">
 
-    <div class="card shadow mt-4">
+<a href="{{ route('pengendara.index') }}" class="menu-btn">
 
-        <div class="card-header bg-white">
+<i class="fas fa-user"></i>
 
-            <h5 class="fw-bold mb-0">
+Pengendara
 
-                📋 Aktivitas Sistem
+</a>
 
-            </h5>
+</div>
 
-        </div>
+<div class="col-6">
 
-        <div class="card-body">
+<a href="{{ route('kendaraan.index') }}" class="menu-btn">
 
-            <ul class="list-group">
+<i class="fas fa-car"></i>
 
-                <li class="list-group-item">
-                    ✔ Data Petugas berhasil dikelola
-                </li>
+Kendaraan
 
-                <li class="list-group-item">
-                    ✔ Data Pengendara berhasil dikelola
-                </li>
+</a>
 
-                <li class="list-group-item">
-                    ✔ Data Kendaraan berhasil dikelola
-                </li>
+</div>
 
-                <li class="list-group-item">
-                    ✔ Data Pelanggaran siap diproses
-                </li>
+<div class="col-6">
 
-            </ul>
+<a href="{{ route('pelanggaran.index') }}" class="menu-btn">
 
-        </div>
+<i class="fas fa-file-circle-exclamation"></i>
 
-    </div>
+Pelanggaran
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 
 <script>
 
-// Jam Digital
+const ctx=document.getElementById('myChart');
+
+new Chart(ctx,{
+type:'bar',
+data:{
+labels:['Jan','Feb','Mar','Apr','Mei','Jun'],
+datasets:[{
+label:'Jumlah Pelanggaran',
+data:[12,19,8,15,10,22],
+backgroundColor:[
+'#4e54c8',
+'#00b894',
+'#f7971e',
+'#0984e3',
+'#d63031',
+'#8e44ad'
+],
+borderRadius:8
+}]
+},
+options:{
+plugins:{
+legend:{
+labels:{
+color:'white'
+}
+}
+},
+scales:{
+x:{
+ticks:{color:'white'}
+},
+y:{
+ticks:{color:'white'}
+}
+}
+}
+});
 
 setInterval(function(){
 
-let now = new Date();
+let now=new Date();
 
-document.getElementById("clock").innerHTML =
-now.toLocaleDateString('id-ID')+"<br>"+now.toLocaleTimeString('id-ID');
+document.getElementById('jam').innerHTML=
+
+now.toLocaleTimeString('id-ID');
 
 },1000);
-
-// Chart
-
-const ctx=document.getElementById('chartData');
-
-new Chart(ctx,{
-
-type:'bar',
-
-data:{
-
-labels:[
-'Petugas',
-'Pengendara',
-'Kendaraan',
-'Jenis Pelanggaran',
-'Pelanggaran'
-],
-
-datasets:[{
-
-label:'Jumlah Data',
-
-data:[
-{{ $petugas }},
-{{ $pengendara }},
-{{ $kendaraan }},
-{{ $jenispelanggaran }},
-{{ $pelanggaran }}
-]
-
-}]
-
-},
-
-options:{
-
-responsive:true,
-
-plugins:{
-
-legend:{
-display:false
-}
-
-}
-
-}
-
-});
 
 </script>
 

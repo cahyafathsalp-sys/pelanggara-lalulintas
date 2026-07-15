@@ -1,111 +1,91 @@
 body{
-    background:#071b36;
+    background:#0f172a;
+    font-family:'Poppins',sans-serif;
 }
 
 .left-panel{
-   background: url("../image/Dashboard.jpeg");
+    background:url("../image/jjj.jpg") center center;
     background-size:cover;
-    background-position:center;
+    position:relative;
 }
 
 .overlay{
-    background:rgba(0,20,45,.75);
+    width:100%;
     height:100%;
+    background:rgba(15,23,42,.75);
     display:flex;
     align-items:center;
+    justify-content:center;
     padding:60px;
 }
 
-.left-content{
-    color:white;
+.content{
+    color:#fff;
 }
 
-.left-content h1{
-    font-size:52px;
-    font-weight:bold;
+.logo-circle{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#2563eb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:40px;
+    margin-bottom:20px;
+}
+
+.hero-img{
+    max-width:450px;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
 }
 
 .login-side{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#071427;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
 }
 
-.login-box{
-
-    width:430px;
-
-    padding:45px;
-
-    border-radius:25px;
-
+.login-card{
+    width:420px;
     background:rgba(255,255,255,.08);
-
-    backdrop-filter:blur(20px);
-
-    box-shadow:0 0 30px rgba(0,0,0,.4);
-
-    color:white;
-
+    backdrop-filter:blur(18px);
+    border-radius:20px;
+    padding:40px;
+    color:#fff;
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
 }
 
 .avatar{
-
     width:90px;
     height:90px;
-
-    border-radius:20px;
-
-    background:rgba(255,255,255,.12);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:40px;
-
+    border-radius:50%;
+    background:#2563eb;
     margin:auto;
-    margin-bottom:20px;
-
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:40px;
+    color:#fff;
 }
 
 .form-control{
-
-    background:transparent;
-
-    color:white;
-
-    border:1px solid #3d7eff;
-
+    height:50px;
 }
 
-.form-control:focus{
-
-    background:transparent;
-
-    color:white;
-
-    border-color:#63a2ff;
-
-    box-shadow:none;
-
+.input-group-text{
+    background:#2563eb;
+    color:#fff;
+    border:none;
 }
 
 .btn-login{
-
-    height:50px;
-
-    border-radius:12px;
-
-    background:linear-gradient(90deg,#1e73ff,#004de6);
-
-    border:none;
-
+    height:52px;
+    font-size:18px;
+    font-weight:600;
+    border-radius:10px;
 }
 
 .btn-login:hover{
-
-    background:linear-gradient(90deg,#004de6,#1e73ff);
-
+    transform:translateY(-2px);
+    transition:.3s;
 }
